@@ -6,7 +6,7 @@
 
 1.  Clonar el proyecto
 ```
-  git clone
+  git clone https://github.com/mogmarino/teslo-shop
 ```
 2.  Instalar las dependencias del proyecto
 ```
