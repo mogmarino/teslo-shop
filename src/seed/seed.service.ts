@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProductsService } from 'src/products/products.service';
 import { initialData } from './data/seed-data';
+import { User } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class SeedService {
@@ -9,13 +10,13 @@ export class SeedService {
     private readonly productsService: ProductsService
   ){}
 
-  async runSeed () {
+  async runSeed (user: User) {
 
-    await this.insertNewProducts()
+    await this.insertNewProducts(user)
     return 'SEED EXECUTED'
   }
 
-  private async insertNewProducts () {
+  private async insertNewProducts (user: User) {
 
     await this.productsService.deleteAllProducts()
 
@@ -24,7 +25,7 @@ export class SeedService {
     const insertPromises = []
 
     products.forEach(prodcut => {
-      insertPromises.push(this.productsService.create(prodcut))
+      insertPromises.push(this.productsService.create(prodcut, user))
     })
 
     await Promise.all(insertPromises)
