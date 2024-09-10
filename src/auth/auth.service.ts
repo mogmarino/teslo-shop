@@ -64,6 +64,16 @@ export class AuthService {
     }
   }
 
+  async checkAuthStatus (user: User) {
+    return {
+      /* id: user.id,
+      email: user.email,
+      fullName: user.fullName, */
+      ...user,
+      token: this.getJwtToken({id: user.id})
+    }
+  }
+
   private handleDBErrors (error: any): never {
 
     if(error.code === '23505')
